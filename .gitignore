@@ -1,0 +1,11 @@
+idea/
+*.iml
+target
+operations
+*.log
+vendor/
+*.backup
+.terraform
+*.info
+*.key.data
+terraform.tfstate
