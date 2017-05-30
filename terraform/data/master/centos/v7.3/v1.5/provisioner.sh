@@ -1,0 +1,67 @@
+!#/bin/bash
+
+# base update
+
+yum -y update
+
+# base tools
+
+yum -y install vim htop telnet
+
+# validating some services
+
+if [ $(systemctl -q is-active firewalld) ] ; then
+    systemctl stop firewalld
+    systemctl disable firewalld
+fi
+
+# installing network time protocol
+
+yum -y install ntp
+systemctl start ntpd
+systemctl enable ntpd
+
+# installing kubernetes 1.5
+
+yum -y install etcd kubernetes
+
+# configurating etcd data base
+
+cp /etc/etcd/etcd.conf /etc/etcd/etcd.conf.original
+
+cat > /etc/etcd/etcd.conf <<- EOM
+ETCD_NAME=default
+ETCD_DATA_DIR="/var/lib/etcd/default.etcd"
+ETCD_LISTEN_CLIENT_URLS="http://0.0.0.0:2379"
+ETCD_ADVERTISE_CLIENT_URLS="http://localhost:2379"
+EOM
+
+# configurating apiserver
+
+cp /etc/kubernetes/apiserver /etc/kubernetes/apiserver.original
+
+cat > /etc/kubernetes/apiserver <<- EOM
+KUBE_API_ADDRESS="--address=0.0.0.0"
+KUBE_API_PORT="--port=8080"
+KUBELET_PORT="--kubelet_port=10250"
+KUBE_ETCD_SERVERS="--etcd_servers=http://127.0.0.1:2379"
+KUBE_SERVICE_ADDRESSES="--service-cluster-ip-range=10.254.0.0/16"
+KUBE_ADMISSION_CONTROL="--admission_control=NamespaceLifecycle,NamespaceExists,LimitRanger,SecurityContextDeny,ResourceQuota"
+KUBE_API_ARGS=""
+EOM
+
+# setting up services
+
+for SERVICES in etcd kube-apiserver kube-controller-manager kube-scheduler; do
+    systemctl restart $SERVICES
+    systemctl enable $SERVICES
+    systemctl status $SERVICES 
+done
+
+# defining flannel network configuration in the etcd database
+
+etcdctl mk /atomic.io/network/config '{"Network":"172.17.0.0/16"}'
+
+# running test
+
+kubectl get nodes

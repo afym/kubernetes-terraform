@@ -23,6 +23,24 @@ variable "vpc_security_group_ids" {
   description = "A list of security group ids"
 }
 
+# master ip
+
+variable "master_ip" {
+  description = "..."
+}
+
+variable "private_key" {
+  description = "..."
+}
+
+variable "provisioner_source" {
+  description = "..."
+}
+
+variable "master_ip_source" {
+  description = "..."
+}
+
 # tags
 
 variable "tag_name" {
