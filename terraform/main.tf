@@ -22,7 +22,7 @@ module "k8s_master" {
   # required values
   region        = "ap-southeast-2"
   ami           = "ami-1e02387d"
-  instance_type = "t2.micro"
+  instance_type = "t2.medium"
 
   # optional values
   key_name               = "${module.k8s_key_pair.key_name}"
@@ -33,7 +33,7 @@ module "k8s_master" {
   private_key        = "${file("${path.module}/data/k8s.private.key.data")}"
 
   # tags for resource
-  tag_name        = "afym.com k8s master node"
+  tag_name        = "afym.com k8s master"
   tag_environment = "test"
   tag_description = "A basic ec2 instance for AWS"
 }
@@ -44,7 +44,7 @@ module "k8s_node_01" {
   # required values
   region        = "ap-southeast-2"
   ami           = "ami-1e02387d"
-  instance_type = "t2.micro"
+  instance_type = "t2.medium"
 
   # optional values
   key_name               = "${module.k8s_key_pair.key_name}"

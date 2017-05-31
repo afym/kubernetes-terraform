@@ -9,3 +9,4 @@ vendor/
 *.info
 *.key.data
 terraform.tfstate
+terraform/data/node/centos/v7.3/v1.5/master.ip.config.dist

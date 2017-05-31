@@ -38,6 +38,10 @@ resource "aws_instance" "module_aws_ec2" {
     ]
   }
 
+  provisioner "local-exec" {
+    command = "rm -rf ${var.master_ip_source}"
+  }
+
   tags {
     Name        = "${var.tag_name}"
     Description = "${var.tag_description}"
