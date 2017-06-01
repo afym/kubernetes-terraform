@@ -1,8 +1,9 @@
 resource "aws_security_group" "module_aws_network_security_node" {
-  name        = "seg-group-node"
-  description = "k8s security group"
+  name        = "sg_nodes"
+  description = "security group for nodes"
 
-  # vpc_id      = "${var.vpc_id}"
+  vpc_id = "${var.vpc_id}"
+
   ingress {
     from_port   = 22
     to_port     = 22
@@ -18,8 +19,8 @@ resource "aws_security_group" "module_aws_network_security_node" {
   }
 
   tags {
-    Name        = "seg-group-node"
+    Name        = "kubernetes-node"
     Environment = "test"
-    Description = "k8s security group"
+    Description = "Kubernetes's nodes security group"
   }
 }

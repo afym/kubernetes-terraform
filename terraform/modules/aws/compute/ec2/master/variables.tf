@@ -31,6 +31,10 @@ variable "provisioner_source" {
   description = "..."
 }
 
+variable "subnet_id" {
+  description = "..."
+}
+
 # tags
 
 variable "tag_name" {

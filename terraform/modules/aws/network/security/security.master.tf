@@ -1,8 +1,9 @@
 resource "aws_security_group" "module_aws_network_security_master" {
-  name        = "seg-group-master"
-  description = "k8s security group"
+  name        = "sg_master"
+  description = "security group for master"
 
-  # vpc_id      = "${var.vpc_id}"
+  vpc_id = "${var.vpc_id}"
+
   ingress {
     from_port   = 22
     to_port     = 22
@@ -46,8 +47,8 @@ resource "aws_security_group" "module_aws_network_security_master" {
   }
 
   tags {
-    Name        = "seg-group-master"
+    Name        = "kubernetes-master"
     Environment = "test"
-    Description = "k8s security group"
+    Description = "Kubernetes's master security group"
   }
 }

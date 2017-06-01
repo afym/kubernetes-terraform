@@ -23,6 +23,10 @@ variable "vpc_security_group_ids" {
   description = "A list of security group ids"
 }
 
+variable "subnet_id" {
+  description = "..."
+}
+
 # master ip
 
 variable "master_ip" {

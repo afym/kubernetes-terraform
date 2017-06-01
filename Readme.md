@@ -13,7 +13,8 @@ terraform get
 ### Apply changes
 
 ```
-terraform apply
+$ terraform plan -var-file=variables/sydney.tfvars
+$ terraform apply -var-file variables/sydney.tfvars
 ```
 
 #### Users by instance type
