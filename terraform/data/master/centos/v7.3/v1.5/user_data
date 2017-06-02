@@ -1,31 +1,4 @@
-!#/bin/bash
-
-# base update
-
-yum -y update
-
-# base tools
-
-yum -y install vim htop telnet
-
-# validating some services
-
-if [ $(systemctl -q is-active firewalld) ] ; then
-    systemctl stop firewalld
-    systemctl disable firewalld
-fi
-
-# installing network time protocol
-
-yum -y install ntp
-systemctl start ntpd
-systemctl enable ntpd
-
-# installing kubernetes 1.5
-
-yum -y install etcd kubernetes
-
-# configurating etcd data base
+#!/bin/bash
 
 cp /etc/etcd/etcd.conf /etc/etcd/etcd.conf.original
 
@@ -62,6 +35,4 @@ done
 
 etcdctl mk /atomic.io/network/config '{"Network":"172.17.0.0/16"}'
 
-# running test
-
-kubectl get nodes
+echo "master installation complete" >> /tmp/kubernetes.txt

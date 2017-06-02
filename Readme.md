@@ -10,11 +10,18 @@ terraform get
 * create data/k8s.private.key.data
 * create data/k8s.public.key.data
 
+### Go to packer an create the images before start
+
+```
+$ cd packer/
+$ cat Readme.md
+```
+
 ### Apply changes
 
 ```
-$ terraform plan -var-file=variables/sydney.tfvars
-$ terraform apply -var-file variables/sydney.tfvars
+$ terraform plan -var-file=values/sydney.tfvars
+$ terraform apply -var-file=values/sydney.tfvars
 ```
 
 #### Users by instance type

@@ -1,32 +1,8 @@
-!#/bin/bash
+#!/bin/bash
 
-MASTER_IP=$(cat /scripts/master.ip.config)
-NODE_IP=$(hostname --ip-address)
-
-# base update
-
-yum -y update
-
-# base tools
-
-yum -y install vim htop telnet
-
-# validating some services
-
-if [ $(systemctl -q is-active firewalld) ] ; then
-    systemctl stop firewalld
-    systemctl disable firewalld
-fi
-
-# installing network time protocol
-
-yum -y install ntp
-systemctl start ntpd
-systemctl enable ntpd
-
-# installing kubernetes
-
-yum -y install flannel kubernetes
+# master ip is set in de module/aws/compute/ec2
+MASTER_IP="10.0.1.100"
+NODE_IP=$(hostname --ip-address | awk '{print $2}')
 
 # configurating flannel
 
@@ -68,3 +44,5 @@ for SERVICES in kube-proxy kubelet docker flanneld; do
     systemctl enable $SERVICES
     systemctl status $SERVICES 
 done
+
+echo "node installation complete" >> /tmp/kubernetes.txt

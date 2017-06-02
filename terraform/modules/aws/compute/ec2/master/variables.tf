@@ -23,15 +23,11 @@ variable "vpc_security_group_ids" {
   description = "A list of security group ids"
 }
 
-variable "private_key" {
-  description = "..."
-}
-
-variable "provisioner_source" {
-  description = "..."
-}
-
 variable "subnet_id" {
+  description = "..."
+}
+
+variable "user_data" {
   description = "..."
 }
 

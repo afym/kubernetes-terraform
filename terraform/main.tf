@@ -117,17 +117,14 @@ module "k8s_master" {
 
   # required values
   region        = "${var.region}"
-  ami           = "ami-1e02387d"
+  ami           = "${var.kubernetes_master_ami}"
   instance_type = "t2.medium"
 
   # optional values
   key_name               = "${module.k8s_key_pair.key_name}"
   subnet_id              = "${module.kubernetes_public_subnet.subnet_id}"
+  user_data              = "${file("${path.module}/data/master/centos/v7.3/v1.5/user_data")}"
   vpc_security_group_ids = ["${module.kubernetes_security_groups.master}"]
-
-  # provisioner
-  provisioner_source = "data/master/centos/v7.3/v1.5/provisioner.sh"
-  private_key        = "${file("${path.module}/data/k8s.private.key.data")}"
 
   # tags for resource
   tag_name        = "afym.com k8s master"
@@ -140,22 +137,17 @@ module "k8s_node_01" {
 
   # required values
   region        = "${var.region}"
-  ami           = "ami-1e02387d"
+  ami           = "${var.kubernetes_node_ami}"
   instance_type = "t2.medium"
 
   # optional values
   key_name               = "${module.k8s_key_pair.key_name}"
   vpc_security_group_ids = ["${module.kubernetes_security_groups.node}"]
   subnet_id              = "${module.kubernetes_private_subnet.subnet_id}"
-  master_ip              = "${module.k8s_master.master_ip}"
-  master_ip_source       = "data/node/centos/v7.3/v1.5/master.ip.config.dist"
-
-  # provisioner
-  provisioner_source = "data/node/centos/v7.3/v1.5/provisioner.sh"
-  private_key        = "${file("${path.module}/data/k8s.private.key.data")}"
+  user_data              = "${file("${path.module}/data/node/centos/v7.3/v1.5/user_data")}"
 
   # tags for resource
   tag_name        = "afym.com k8s node 01"
   tag_environment = "test"
-  tag_description = "A basic ec2 instance for AWS"
+  tag_description = "A basic ec2 instance for AWS ${module.k8s_master.master_ip}"
 }

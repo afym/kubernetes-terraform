@@ -29,19 +29,7 @@ variable "subnet_id" {
 
 # master ip
 
-variable "master_ip" {
-  description = "..."
-}
-
-variable "private_key" {
-  description = "..."
-}
-
-variable "provisioner_source" {
-  description = "..."
-}
-
-variable "master_ip_source" {
+variable "user_data" {
   description = "..."
 }
 

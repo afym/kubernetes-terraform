@@ -1,0 +1,28 @@
+{
+  "variables": {
+    "aws_access_key": "",
+    "aws_secret_key": "",
+    "aws_region" : "",
+    "source_ami" : "",
+    "instance_type" : "t2.micro",
+    "ssh_username" : "",
+    "cluster_type" : "",
+    "name_os" : "",
+    "version_os" : "",
+    "version_k8s" : ""
+  },
+  "builders": [{
+    "type": "amazon-ebs",
+    "access_key": "{{user `aws_access_key`}}",
+    "secret_key": "{{user `aws_secret_key`}}",
+    "region": "{{user `aws_region`}}",
+    "source_ami": "{{user `source_ami`}}",
+    "instance_type": "{{user `instance_type`}}",
+    "ssh_username": "{{user `ssh_username`}}",
+    "ami_name": "{{user `cluster_type`}}-{{user `version_k8s`}}-ami-{{user `name_os`}}-{{user `version_os`}}"
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "script": "{{user `cluster_type`}}/{{user `name_os`}}/{{user `version_os`}}/{{user `version_k8s`}}/provisioner.sh"
+  }]
+}
