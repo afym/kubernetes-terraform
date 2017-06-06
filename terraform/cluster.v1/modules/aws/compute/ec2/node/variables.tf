@@ -24,13 +24,11 @@ variable "vpc_security_group_ids" {
 }
 
 variable "subnet_id" {
-  description = "..."
+  description = "The subnet id for the instance"
 }
 
-# master ip
-
 variable "user_data" {
-  description = "..."
+  description = "The path for the user data script to boot some configuration"
 }
 
 # tags

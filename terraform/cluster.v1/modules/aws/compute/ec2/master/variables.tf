@@ -24,11 +24,23 @@ variable "vpc_security_group_ids" {
 }
 
 variable "subnet_id" {
-  description = "..."
+  description = "The subnet id for the instance"
 }
 
 variable "user_data" {
-  description = "..."
+  description = "The path for the user data script to boot some configuration"
+}
+
+variable "volume_size" {
+  description = "volume size for the root disk"
+}
+
+variable "private_ip" {
+  description = "private ip for the master"
+}
+
+variable "iam_instance_profile" {
+  description = "The instnace profile for the master"
 }
 
 # tags

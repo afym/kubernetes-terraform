@@ -1,4 +1,4 @@
-#### Import the module in your recipe
+#### In this repository you will find the following terraform 
 
 ```
 terraform get
@@ -20,6 +20,7 @@ $ cat Readme.md
 ### Apply changes
 
 ```
+$ terraform get
 $ terraform plan -var-file=values/sydney.tfvars
 $ terraform apply -var-file=values/sydney.tfvars
 ```
