@@ -4,7 +4,7 @@
 terraform get
 ```
 
-#### Generate your keys
+#### Generate your keys (cluster.vx/data) keep the names
 
 * use : http://generator.my-addr.com/generate_ssh_public_rsa_key-private_rsa_key-ssh_pair_online_tool.php
 * create data/k8s.private.key.data

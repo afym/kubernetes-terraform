@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 module "kubernetes_master_instance" {
-  source = "./modules/aws/compute/ec2/master"
+  source = "./../modules/aws/compute/ec2/master"
 
   # required values
   region        = "${var.region}"
@@ -26,7 +26,7 @@ module "kubernetes_master_instance" {
 }
 
 module "kubernetes_scaling_groups" {
-  source = "./modules/aws/compute/scaling/"
+  source = "./../modules/aws/compute/scaling/"
 
   region          = "${var.region}"
   key_name        = "${module.kubernetes_private_key.key_name}"

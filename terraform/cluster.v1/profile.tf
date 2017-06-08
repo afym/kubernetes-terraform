@@ -1,5 +1,5 @@
 module "kubernetes_private_key" {
-  source = "./modules/aws/compute/keys"
+  source = "./../modules/aws/compute/keys"
 
   region     = "${var.region}"
   key_name   = "k8s_key_pair"
@@ -7,7 +7,7 @@ module "kubernetes_private_key" {
 }
 
 module "kubernetes_node_profile" {
-  source = "./modules/aws/identity/iam"
+  source = "./../modules/aws/identity/iam"
 
   region = "${var.region}"
 
@@ -19,7 +19,7 @@ module "kubernetes_node_profile" {
 }
 
 module "kubernetes_master_profile" {
-  source = "./modules/aws/identity/iam"
+  source = "./../modules/aws/identity/iam"
 
   region = "${var.region}"
 

@@ -1,5 +1,5 @@
 module "kubernetes_vpc" {
-  source = "./modules/aws/network/vpc"
+  source = "./../modules/aws/network/vpc"
   region = "${var.region}"
 
   # vpc
@@ -12,7 +12,7 @@ module "kubernetes_vpc" {
 }
 
 module "kubernetes_public_subnet" {
-  source = "./modules/aws/network/subnet"
+  source = "./../modules/aws/network/subnet"
   region = "${var.region}"
 
   # subnet
@@ -27,7 +27,7 @@ module "kubernetes_public_subnet" {
 }
 
 module "kubernetes_private_subnet" {
-  source = "./modules/aws/network/subnet"
+  source = "./../modules/aws/network/subnet"
   region = "${var.region}"
 
   # subnet
@@ -42,7 +42,7 @@ module "kubernetes_private_subnet" {
 }
 
 module "kubernetes_internet_gateway" {
-  source = "./modules/aws/network/gateway"
+  source = "./../modules/aws/network/gateway"
   region = "${var.region}"
 
   # vpc
@@ -55,12 +55,12 @@ module "kubernetes_internet_gateway" {
 }
 
 module "kubernetes_ip_nat" {
-  source = "./modules/aws/network/ip"
+  source = "./../modules/aws/network/ip"
   region = "${var.region}"
 }
 
 module "kubernetes_nat_gateway" {
-  source = "./modules/aws/network/nat"
+  source = "./../modules/aws/network/nat"
   region = "${var.region}"
 
   # vpc
@@ -69,7 +69,7 @@ module "kubernetes_nat_gateway" {
 }
 
 module "kubernetes_security_groups" {
-  source = "./modules/aws/network/security"
+  source = "./../modules/aws/network/security"
   region = "${var.region}"
 
   # security
@@ -77,7 +77,7 @@ module "kubernetes_security_groups" {
 }
 
 module "kubernetes_router" {
-  source = "./modules/aws/network/router"
+  source = "./../modules/aws/network/router"
   region = "${var.region}"
 
   # vpc
