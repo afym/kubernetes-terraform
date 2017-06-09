@@ -2,6 +2,11 @@
 
 We have a default 4 ec2 instances for this cluster over the default vpc in aws regions.
 
+#### 0. Make sure have the following things before start
+
+* copy the *.dist ending in *.data
+* write valid ssh keys inside *.data files
+
 #### 1. Installing ansible in the local machine
 ```
 $ sudo apt-get install python-pip

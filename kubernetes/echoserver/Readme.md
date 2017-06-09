@@ -1,7 +1,8 @@
 #### Inside the master
 
 ```
-$ kubectl run test --image=gcr.io/google_containers/echoserver:1.4 --port=8080
+$ kubectl run test --image=gcr.io/google-containers/echoserver:1.5 --port=8080
+$ kubectl run nginx13 --image=registry.hub.docker.com/library/nginx:1.13-alpine --port=80
 $ kubectl expose deployment test --type=NodePort
 $ kubectl get service
 
