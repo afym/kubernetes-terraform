@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    component: etcd
+    tier: control-plane
+  name: etcd
+  namespace: kube-system
+spec:
+  containers:
+  - command:
+    - etcd
+    - --name master01
+    - --initial-advertise-peer-urls http://172.31.16.20:2380
+    - --listen-peer-urls http://172.31.16.20:2380
+    - --listen-client-urls http://172.31.16.20:2379,http://127.0.0.1:2379
+    - --advertise-client-urls http://172.31.16.20:2379
+    - --initial-cluster-token c8f595dcbb96322f4
+    - --initial-cluster infra0=http://172.31.16.20:2380,infra1=http://172.31.16.21:2380,infra2=http://172.31.16.22:2380
+    - --initial-cluster-state new
+    - --data-dir=/var/lib/etcd
+    image: gcr.io/google_containers/etcd-amd64:3.0.17
+    livenessProbe:
+      failureThreshold: 8
+      httpGet:
+        host: 127.0.0.1
+        path: /health
+        port: 2379
+        scheme: HTTP
+      initialDelaySeconds: 15
+      timeoutSeconds: 15
+    name: etcd
+    resources: {}
+    volumeMounts:
+    - mountPath: /etc/ssl/certs
+      name: certs
+    - mountPath: /var/lib/etcd
+      name: etcd
+    - mountPath: /etc/kubernetes/
+      name: k8s
+      readOnly: true
+  hostNetwork: true
+  securityContext:
+    seLinuxOptions:
+      type: spc_t
+  volumes:
+  - hostPath:
+      path: /etc/ssl/certs
+    name: certs
+  - hostPath:
+      path: /var/lib/etcd
+    name: etcd
+  - hostPath:
+      path: /etc/kubernetes
+    name: k8s
+status: {}
