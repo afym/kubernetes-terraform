@@ -1,0 +1,64 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    component: kube-apiserver
+    tier: control-plane
+  name: kube-apiserver
+  namespace: kube-system
+spec:
+  containers:
+  - command:
+    - kube-apiserver
+    - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+    - --requestheader-username-headers=X-Remote-User
+    - --service-account-key-file=/etc/kubernetes/pki/sa.pub
+    - --kubelet-client-certificate=/etc/kubernetes/pki/apiserver-kubelet-client.crt
+    - --secure-port=6443
+    - --experimental-bootstrap-token-auth=true
+    - --client-ca-file=/etc/kubernetes/pki/ca.crt
+    - --kubelet-client-key=/etc/kubernetes/pki/apiserver-kubelet-client.key
+    - --requestheader-group-headers=X-Remote-Group
+    - --requestheader-allowed-names=front-proxy-client
+    - --service-cluster-ip-range=10.96.0.0/12
+    - --tls-cert-file=/etc/kubernetes/pki/apiserver.crt
+    - --requestheader-client-ca-file=/etc/kubernetes/pki/front-proxy-ca.crt
+    - --storage-backend=etcd3
+    - --admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,DefaultStorageClass,ResourceQuota,DefaultTolerationSeconds
+    - --allow-privileged=true
+    - --requestheader-extra-headers-prefix=X-Remote-Extra-
+    - --tls-private-key-file=/etc/kubernetes/pki/apiserver.key
+    - --insecure-port=0
+    - --authorization-mode=RBAC
+    - --advertise-address=172.31.16.21
+    - --etcd-servers=http://127.0.0.1:2379
+    image: gcr.io/google_containers/kube-apiserver-amd64:v1.6.5
+    livenessProbe:
+      failureThreshold: 8
+      httpGet:
+        host: 127.0.0.1
+        path: /healthz
+        port: 6443
+        scheme: HTTPS
+      initialDelaySeconds: 15
+      timeoutSeconds: 15
+    name: kube-apiserver
+    resources:
+      requests:
+        cpu: 250m
+    volumeMounts:
+    - mountPath: /etc/kubernetes/
+      name: k8s
+      readOnly: true
+    - mountPath: /etc/ssl/certs
+      name: certs
+  hostNetwork: true
+  volumes:
+  - hostPath:
+      path: /etc/kubernetes
+    name: k8s
+  - hostPath:
+      path: /etc/ssl/certs
+    name: certs
+status: {}

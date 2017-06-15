@@ -1,0 +1,46 @@
+- file:
+    path: /etc/kubernetes/manifests
+    state: directory
+    mode: 0755
+
+- template:
+    src: templates/system/10-kubeadm.j2
+    dest: /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+    owner: root
+    group: root
+    mode: 0640
+
+#- template:
+#    src: templates/manifest/etcd.j2
+#    dest: /etc/kubernetes/manifests/etcd.yaml
+#    owner: root
+#    group: root
+#    mode: 0640
+#
+#- template:
+#    src: templates/manifest/kube-apiserver.j2
+#    dest: /etc/kubernetes/manifests/kube-apiserver.yaml
+#    owner: root
+#    group: root
+#    mode: 0640
+#
+#- template:
+#    src: templates/manifest/kube-controller-manager.j2
+#    dest: /etc/kubernetes/manifests/kube-controller-manager.yaml
+#    owner: root
+#    group: root
+#    mode: 0640
+#
+#- template:
+#    src: templates/manifest/kube-scheduler.j2
+#    dest: /etc/kubernetes/manifests/kube-scheduler.yaml
+#    owner: root
+#    group: root
+#    mode: 0640
+#
+#- name: Reloading the daemon
+#  command: systemctl daemon-reload
+#
+#- name: Starting the kubelet
+#  command: systemctl start kubelet
+#

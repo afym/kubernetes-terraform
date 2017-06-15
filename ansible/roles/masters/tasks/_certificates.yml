@@ -1,0 +1,64 @@
+- file:
+    path: /etc/kubernetes/pki
+    state: directory
+    mode: 0755
+
+- copy:
+    src: ../secrets/apiserver-kubelet-client.crt
+    dest: /etc/kubernetes/pki/apiserver-kubelet-client.crt
+    mode: 0644
+
+- copy:
+    src: ../secrets/apiserver-kubelet-client.key
+    dest: /etc/kubernetes/pki/apiserver-kubelet-client.key
+    mode: 0600
+
+- copy:
+    src: ../secrets/apiserver.crt
+    dest: /etc/kubernetes/pki/apiserver.crt
+    mode: 0644
+
+- copy:
+    src: ../secrets/apiserver.key
+    dest: /etc/kubernetes/pki/apiserver.key
+    mode: 0600
+
+- copy:
+    src: ../secrets/ca.crt
+    dest: /etc/kubernetes/pki/ca.crt
+    mode: 0644
+
+- copy:
+    src: ../secrets/ca.key
+    dest: /etc/kubernetes/pki/ca.key
+    mode: 0600
+
+- copy:
+    src: ../secrets/front-proxy-ca.crt
+    dest: /etc/kubernetes/pki/front-proxy-ca.crt
+    mode: 0644
+
+- copy:
+    src: ../secrets/front-proxy-ca.key
+    dest: /etc/kubernetes/pki/front-proxy-ca.key
+    mode: 0600
+
+- copy:
+    src: ../secrets/front-proxy-client.crt
+    dest: /etc/kubernetes/pki/front-proxy-client.crt
+    mode: 0644
+
+- copy:
+    src: ../secrets/front-proxy-client.key
+    dest: /etc/kubernetes/pki/front-proxy-client.key
+    mode: 0600
+
+- copy:
+    src: ../secrets/sa.key
+    dest: /etc/kubernetes/pki/sa.key
+    mode: 0600
+
+- copy:
+    src: ../secrets/sa.pub
+    dest: /etc/kubernetes/pki/sa.pub
+    mode: 0600

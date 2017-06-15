@@ -1,0 +1,10 @@
+apt_key: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+packages :
+    - vim
+    - htop
+    - tmux
+    - docker.io
+    - kubelet
+    - kubeadm
+    - kubectl
+    - kubernetes-cni

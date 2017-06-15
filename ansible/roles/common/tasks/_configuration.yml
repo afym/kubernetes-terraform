@@ -1,0 +1,8 @@
+---
+- name: Adding the Google signing key
+  apt_key: url={{ apt_key }} state=present
+- name: Adding the kubernetes APT repo
+  apt_repository: repo='deb http://apt.kubernetes.io/ kubernetes-xenial main' state=present
+- name: Installing the packages
+  apt: name={{ item }} state=installed update_cache=true force=yes
+  with_items: "{{ packages }}"
